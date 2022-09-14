@@ -1,0 +1,20 @@
+@import '../Header/Header';
+.footer {
+  display: flex;
+  flex-direction: column;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+  background-color: #2d3236;
+  color: white;
+}
+
+.footerContent  {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+  margin: 20px 0 20px $border-margin;
+
+}
+

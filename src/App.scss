@@ -1,0 +1,16 @@
+@charset "UTF-8";
+
+*{
+  box-sizing: border-box;
+}
+
+html {
+  font-size: 20px;
+}
+
+body{
+  font-family: 'Kulim Park', sans-serif;
+  display: flex;
+  flex-direction: column;
+  margin: 0;
+}

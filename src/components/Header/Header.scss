@@ -1,0 +1,31 @@
+$border-margin: 60px;
+
+
+.header {
+  display: flex;
+  flex-direction: column;
+
+}
+
+.headerContent  {
+  display: flex;
+  flex-direction: row;
+  justify-content: space-between;
+  align-items: center;
+
+}
+
+.title {
+  margin: 20px 20px 20px $border-margin;
+  font-weight: bold;
+  font-size: 24px;
+}
+
+.login {
+  margin: 20px $border-margin 20px 20px;
+}
+
+.horizontalLine {
+  border-bottom: grey 1px solid;
+  margin: 0 $border-margin 20px $border-margin;
+}
