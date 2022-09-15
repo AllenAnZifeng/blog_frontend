@@ -14,7 +14,7 @@ export function Body() {
             let result = await fetch('https://api.github.com/repos/AllenAnZifeng/blog_content/contents/contents').then(res => res.json())
             let temp = [];
             for (let i = 0; i < result.length; i++) {
-                temp.push(<Card key={i} name={result[i].name}/>)
+                temp.push(<Card key={i} filename={result[i].name}/>)
             }
             setCards(temp)
         }

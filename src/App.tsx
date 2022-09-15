@@ -1,17 +1,39 @@
-import React from 'react';
-import {Header} from './components/Header/Header'
+import React, {useEffect, useState} from 'react';
+import {HomePage} from "./components/HomePage/HomePage";
 import './App.scss';
-import {Footer} from "./components/Footer/Footer";
-import {Body} from "./components/Body/Body";
+import {
+  BrowserRouter as Router,
+  Routes,
+  Route
+} from "react-router-dom";
+import {ArticlePage} from "./components/ArticlePage/ArticlePage";
+
+
 
 function App() {
-  return (
-    <div className="App">
-    <Header></Header>
-      <Body></Body>
-      <Footer></Footer>
-    </div>
-  );
+
+  const [filenames, setFilenames] = useState(['']);
+
+  useEffect( () => {
+
+    const fetchData = async () => {
+      let result = await fetch('https://api.github.com/repos/AllenAnZifeng/blog_content/contents/contents').then(res => res.json())
+      let temp = [];
+      for (let i = 0; i < result.length; i++) {
+        temp.push(result[i].name)
+      }
+      setFilenames(temp)
+    }
+    fetchData().catch(console.error)
+  },[]);
+
+
+  return <Router>
+    <Routes>
+      <Route path="/" element={<HomePage />} />
+      <Route path="/blog/:filename" element={<ArticlePage />} />
+    </Routes>
+  </Router>
 }
 
 export default App;
