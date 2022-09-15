@@ -12,26 +12,17 @@ import {ArticlePage} from "./components/ArticlePage/ArticlePage";
 
 function App() {
 
-  const [filenames, setFilenames] = useState(['']);
+  const [data, setData] = useState(['']);
 
   useEffect( () => {
 
-    const fetchData = async () => {
-      let result = await fetch('https://api.github.com/repos/AllenAnZifeng/blog_content/contents/contents').then(res => res.json())
-      let temp = [];
-      for (let i = 0; i < result.length; i++) {
-        temp.push(result[i].name)
-      }
-      setFilenames(temp)
-    }
-    fetchData().catch(console.error)
-  },[]);
-
+   console.log(data)
+  },[data]);
 
   return <Router>
     <Routes>
-      <Route path="/" element={<HomePage />} />
-      <Route path="/blog/:filename" element={<ArticlePage />} />
+      <Route path="/" element={<HomePage handler={setData} />} />
+      <Route path="/blog/:filename" element={<ArticlePage/>} />
     </Routes>
   </Router>
 }

@@ -1,7 +1,7 @@
 import React, {useEffect, useState} from 'react'
 import './Card.scss'
-import { createBrowserRouter,RouterProvider,Link } from "react-router-dom";
-import {Article} from "../Article/Article";
+import { Link } from "react-router-dom";
+
 type Props = {
     filename: string
 }
@@ -16,8 +16,6 @@ export function Card(props: Props) {
         category: "",
         tags: [""]
     });
-
-
 
 
     useEffect( () => {
@@ -42,8 +40,8 @@ export function Card(props: Props) {
         fetchData().catch(console.error)
     },[props,data]);
 
-    return <div>
+    return <div className={'card'}>
         <Link to={"/blog/"+props.filename}>{info.title}</Link>
-        <div><pre>{JSON.stringify(info)}</pre></div>
+        <div className={'abstract'}><pre>{JSON.stringify(info)}</pre></div>
     </div>
 }

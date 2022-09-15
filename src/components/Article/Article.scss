@@ -1,0 +1,8 @@
+@import '../Header/Header';
+.article{
+  display: flex;
+  flex-direction: column;
+  flex-wrap: wrap;
+  margin: 0 20px 20px $border-margin;
+}
+
