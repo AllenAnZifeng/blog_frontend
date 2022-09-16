@@ -15,4 +15,7 @@ jobs:
         run: |
           git config user.name "GitHub Actions Bot"
           git config user.email "zifeng.allen@gmail.com"
-      - run: npm run deploy
+      - name: deployment
+        with:
+          repo-token:  ${{ secrets.GITHUB_TOKEN }}
+        run: npm run deploy
