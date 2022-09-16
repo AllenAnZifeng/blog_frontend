@@ -13,8 +13,8 @@ jobs:
       - run: npm install
       - name: Deploy with gh-pages
         run: |
-          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
-          npx gh-pages -d build -u "github-actions-bot <devops@github.com>"
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/AllenAnZifeng/blog_frontend.git
+          npm run deploy -u "github-actions-bot <devops@github.com>"
         env:
             GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
