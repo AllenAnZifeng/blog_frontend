@@ -11,4 +11,8 @@ jobs:
         with:
           node-version: '16'
       - run: npm install
+      - name: setup git config
+        run: |
+          git config user.name "GitHub Actions Bot"
+          git config user.email "zifeng.allen@gmail.com"
       - run: npm run deploy
