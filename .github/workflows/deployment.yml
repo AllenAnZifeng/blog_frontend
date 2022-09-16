@@ -11,11 +11,10 @@ jobs:
         with:
           node-version: '16'
       - run: npm install
-      - name: setup git config
+      - name: Deploy with gh-pages
         run: |
-          git config user.name "GitHub Actions Bot"
-          git config user.email "zifeng.allen@gmail.com"
-      - name: deployment
-        with:
-          repo-token:  ${{ secrets.GITHUB_TOKEN }}
-        run: npm run deploy
+          git remote set-url origin https://git:${GITHUB_TOKEN}@github.com/${GITHUB_REPOSITORY}.git
+          npx gh-pages -d build -u "github-actions-bot <devops@github.com>"
+        env:
+            GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+
