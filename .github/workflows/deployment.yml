@@ -1,5 +1,7 @@
 name: deploy-master
 on: [push]
+env:
+  CI: false
 jobs:
   deploy-master:
     runs-on: ubuntu-latest
