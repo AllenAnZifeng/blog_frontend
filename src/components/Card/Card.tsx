@@ -40,8 +40,17 @@ export function Card(props: Props) {
         fetchData().catch(console.error)
     },[props,data]);
 
-    return <div className={'card'}>
-        <Link to={"/blog/"+props.filename}>{info.title}</Link>
-        <div className={'abstract'}><pre>{JSON.stringify(info)}</pre></div>
-    </div>
+
+
+    return <Link to={"/blog/"+props.filename} className={'card'}>
+                <div className={'card-title'}>{info.title}</div>
+                <div className={'card-description'}>{info.description}</div>
+                <div className={'card-footer'}>
+                    <div className={'card-time'}>{info.time}</div>
+                    <div className={'card-category'}>{info.category}</div>
+                </div>
+            </Link>
+
+
+
 }
