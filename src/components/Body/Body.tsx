@@ -13,15 +13,14 @@ export function Body(props:Props) {
     useEffect( () => {
 
         const fetchData = async () => {
-            let result = await fetch('https://api.github.com/repos/AllenAnZifeng/blog_content/contents/contents').then(res => res.json())
-            let temp = [];
-            let data_backto_app=[]
-            for (let i = 0; i < result.length; i++) {
-                temp.push(<Card key={i} filename={result[i].name}/>)
-                data_backto_app.push(result[i].name)
+            let result:string = await fetch('https://raw.githubusercontent.com/AllenAnZifeng/blog_content/master/fileInfo.txt').then(res => res.text())
+            let temp: JSX.Element[] = [];
+            let filenames: string[] = result.trim().split('\n')
+            for (let i = 0; i < filenames.length; i++) {
+                temp.push(<Card key={i} filename={filenames[i]}/>)
             }
             setCards(temp)
-            props.handler(data_backto_app)
+            props.handler(filenames)
         }
         fetchData().catch(console.error)
     },[]);
