@@ -36,7 +36,6 @@ export function Card(props: Props) {
                 tags: tags
             })
             setData(result)
-            console.log('i fire once');
         }
         fetchData().catch(console.error)
     },[props]);
