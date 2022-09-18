@@ -3,18 +3,22 @@ import './Card.scss'
 import { Link } from "react-router-dom";
 
 type Props = {
-    filename: string
+    filename: string,
+    index: number,
+    blogsInfo: {filename: string, title: string, time: string, description: string, category: string, tags: string[], data: string}[],
+    handler: React.Dispatch<React.SetStateAction<{filename: string, title: string, time: string, description: string, category: string, tags: string[], data: string}[]>>
 }
 
 export function Card(props: Props) {
 
-    const [data, setData] = useState("");
     const [info, setInfo] = useState({
+        filename: "",
         title: "",
         time: "",
         description: "",
         category: "",
-        tags: [""]
+        tags: [""],
+        data: ""
     });
 
 
@@ -28,14 +32,20 @@ export function Card(props: Props) {
             let description:string = splitted[3].split(":")[1].slice(0,-1).trim()
             let category:string = splitted[4].split(":")[1].slice(0,-1).trim()
             let tags:string[] = splitted[5].split(":")[1].split(',')
-            setInfo({
+            let info = {
+                filename:props.filename,
                 title:title,
                 time: time,
                 description: description,
                 category: category,
-                tags: tags
-            })
-            setData(result)
+                tags: tags,
+                data: result
+            }
+            setInfo(info)
+            let newBlogsInfo = props.blogsInfo
+            newBlogsInfo[props.index] = info
+            props.handler(newBlogsInfo)
+
         }
         fetchData().catch(console.error)
     },[props]);

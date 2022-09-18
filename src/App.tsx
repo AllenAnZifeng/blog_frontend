@@ -12,17 +12,17 @@ import {ArticlePage} from "./components/ArticlePage/ArticlePage";
 
 function App() {
 
-  const [data, setData] = useState(['']);
+
+  const [data, setData] = useState(Array<{filename: string,title: string, time: string, description: string, category: string, tags: string[], data: string}>);
 
   useEffect( () => {
 
-   console.log(data)
   },[data]);
 
   return <Router>
     <Routes>
       <Route path="/" element={<HomePage handler={setData} />} />
-      <Route path="/blog/:filename" element={<ArticlePage/>} />
+      <Route path="/blog/:filename" element={<ArticlePage data={data}/>} />
     </Routes>
   </Router>
 }
