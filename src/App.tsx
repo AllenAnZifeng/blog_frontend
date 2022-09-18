@@ -22,7 +22,7 @@ function App() {
   return <Router>
     <Routes>
       <Route path="/" element={<HomePage handler={setData} />} />
-      <Route path="/blog/:filename" element={<ArticlePage data={data}/>} />
+      <Route path="/blog/:filename" element={<ArticlePage/>} />
     </Routes>
   </Router>
 }
