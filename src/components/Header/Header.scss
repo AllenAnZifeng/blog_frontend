@@ -1,4 +1,19 @@
-$border-margin: 60px;
+
+@mixin adaptive_margin($top:1rem,$right:1rem,$bottom:1rem,$left:1rem) {
+  @media screen and (max-width: 700px) { // 0-700px
+    margin: $top 0.5*$right $bottom 0.5*$left;
+  }
+
+  @media screen and (min-width: 700px) { // 700 - 1100 px
+    margin: $top $right $bottom $left;
+  }
+
+  @media screen and (min-width: 700px) { // > 1100 px
+    margin: $top 1.2*$right $bottom 1.2*$left;
+  }
+
+}
+
 
 
 .header {
@@ -17,9 +32,10 @@ $border-margin: 60px;
 }
 
 .title {
-  margin: 20px 20px 20px $border-margin;
+  //margin: 20px 20px 20px $border-margin;
+  @include adaptive_margin($left:2rem);
   font-weight: bold;
-  font-size: 24px;
+  font-size: 1.3rem;
 
   a{
     color: inherit;
@@ -29,10 +45,16 @@ $border-margin: 60px;
 }
 
 .login {
-  margin: 20px $border-margin 20px 20px;
+  //margin: 20px $border-margin 20px 20px;
+  @include adaptive_margin($right:2rem);
+  font-size: 1.1rem;
 }
 
 .horizontalLine {
   border-bottom: grey 1px solid;
-  margin: 0 $border-margin 20px $border-margin;
+  //margin: 0 $border-margin 20px $border-margin;
+  @include adaptive_margin(0,2rem,1rem,2rem);
 }
+
+
+
