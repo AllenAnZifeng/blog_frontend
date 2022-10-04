@@ -14,7 +14,6 @@
   flex-direction: row;
   justify-content: space-between;
   align-items: center;
-  //margin: 20px 0 20px $border-margin;
   @include adaptive_margin(1rem,0,1rem,2rem);
 
 }

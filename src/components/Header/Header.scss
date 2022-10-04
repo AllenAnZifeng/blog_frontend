@@ -32,7 +32,6 @@
 }
 
 .title {
-  //margin: 20px 20px 20px $border-margin;
   @include adaptive_margin($left:2rem);
   font-weight: bold;
   font-size: 1.3rem;
@@ -45,14 +44,12 @@
 }
 
 .login {
-  //margin: 20px $border-margin 20px 20px;
   @include adaptive_margin($right:2rem);
   font-size: 1.1rem;
 }
 
 .horizontalLine {
   border-bottom: grey 1px solid;
-  //margin: 0 $border-margin 20px $border-margin;
   @include adaptive_margin(0,2rem,1rem,2rem);
 }
 
