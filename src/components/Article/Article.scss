@@ -3,13 +3,16 @@
   display: flex;
   flex-direction: column;
   flex-wrap: wrap;
-  @include adaptive_margin(0,1rem,1rem,1rem);
+  @include adaptive_margin(0,2rem,1rem,2rem);
   flex-grow: 1;
 }
 
 .article {
   * {
     width: 100%;
+  }
+  img {
+    width: auto;
   }
 }
 
