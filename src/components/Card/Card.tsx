@@ -21,7 +21,6 @@ export function Card(props: Props) {
         data: ""
     });
 
-
     useEffect( () => {
         const fetchData = async () => {
             const URL = "https://raw.githubusercontent.com/AllenAnZifeng/blog_content/master/contents/" + props.filename
@@ -52,15 +51,12 @@ export function Card(props: Props) {
 
 
 
-    return <Link to={"/blog/"+props.filename} className={'card'}>
-                <div className={'card-title'}>{info.title}</div>
-                <div className={'card-description'}>{info.description}</div>
-                <div className={'card-footer'}>
-                    <div className={'card-time'}>{info.time}</div>
-                    <div className={'card-category'}>{info.category}</div>
+    return <Link to={"/blog/"+props.filename} className={'cards'}>
+                <div className={'cards-title'}>{info.title}</div>
+                <div className={'cards-description'}>{info.description}</div>
+                <div className={'cards-footer'}>
+                    <div className={'cards-time'}>{info.time}</div>
+                    <div className={'cards-category'}>{info.category}</div>
                 </div>
             </Link>
-
-
-
 }
