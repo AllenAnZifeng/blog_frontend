@@ -1,37 +1,56 @@
-import React, { useState, useEffect } from 'react'
+import React, {useState, useEffect} from 'react'
 import './Body.scss'
 import {Card} from "../Card/Card";
+import Spinner from 'react-bootstrap/Spinner';
+import {useAppSelector, useAppDispatch} from '../../app/hooks'
+import {fetchArticles, selectAllArticles} from '../../features/articles/articleSlice'
 
 type Props = {
-    handler:  React.Dispatch<React.SetStateAction<{filename: string,title: string, time: string, description: string, category: string, tags: string[], data: string}[]>>,
+    handler: React.Dispatch<React.SetStateAction<{ filename: string, title: string, time: string, description: string, category: string, tags: string[], data: string }[]>>,
 
 }
 
-export function Body(props:Props) {
+export function Body(props: Props) {
 
     const [cards, setCards] = useState<React.ReactElement[]>([]);
-    const [blogsInfo, setblogsInfo] = useState(Array<{filename: string, title: string, time: string, description: string, category: string, tags: string[], data: string}>);
+    const [blogsInfo, setblogsInfo] = useState(Array<{ filename: string, title: string, time: string, description: string, category: string, tags: string[], data: string }>);
+    const dispatch = useAppDispatch()
+    const articles = useAppSelector(selectAllArticles)
+    const articlesStatus = useAppSelector((state) => state.articles.status)
+    const error = useAppSelector((state) => state.articles.error)
 
-    useEffect( () => {
 
 
-        const fetchData = async () => {
-            let result:string = await fetch('https://raw.githubusercontent.com/AllenAnZifeng/blog_content/master/fileInfo.txt').then(res => res.text())
-            let temp: JSX.Element[] = [];
-            let filenames: string[] = result.trim().split('\n')
-            setblogsInfo(Array<{filename: string, title: string, time: string, description: string, category: string, tags: string[], data: string}>(filenames.length))
-            for (let i = 0; i < filenames.length; i++) {
-                temp.push(<Card key={i} index={i} blogsInfo={blogsInfo} handler={setblogsInfo} filename={filenames[i]}/>)
+    useEffect(() => {
+            if (articlesStatus === 'idle') {
+                dispatch(fetchArticles())
             }
-            setCards(temp)
-            props.handler(blogsInfo)
-
-
         }
-        fetchData().catch(console.error)
-    },[]);
+        , [articlesStatus])
+
+    console.log(articles)
+
+    let content;
+
+    if (articlesStatus === 'loading') {
+        // content = <Spinner text="Loading..." />
+        content = <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+        </Spinner>
+    } else if (articlesStatus === 'success') {
+        // Sort posts in reverse chronological order by datetime string
+
+
+        content = articles.map((article, index) => (
+            <Card key={index} index={index} blogsInfo={article} handler={setblogsInfo} filename={article.filename}/>
+        ))
+    } else if (articlesStatus === 'failed') {
+        content = <div>{error}</div>
+    }
+
 
     return <div className={'bodyContent'}>
-        {cards}
+        {content}
+        <div></div>
     </div>
 }

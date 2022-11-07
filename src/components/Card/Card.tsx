@@ -1,62 +1,25 @@
 import React, {useEffect, useState} from 'react'
 import './Card.scss'
 import { Link } from "react-router-dom";
+import {article} from "../../features/articles/articleSlice";
 
 type Props = {
     filename: string,
     index: number,
-    blogsInfo: {filename: string, title: string, time: string, description: string, category: string, tags: string[], data: string}[],
+    blogsInfo: article
     handler: React.Dispatch<React.SetStateAction<{filename: string, title: string, time: string, description: string, category: string, tags: string[], data: string}[]>>
 }
 
 export function Card(props: Props) {
 
-    const [info, setInfo] = useState({
-        filename: "",
-        title: "",
-        time: "",
-        description: "",
-        category: "",
-        tags: [""],
-        data: ""
-    });
-
-    useEffect( () => {
-        const fetchData = async () => {
-            const URL = "https://raw.githubusercontent.com/AllenAnZifeng/blog_content/master/contents/" + props.filename
-            let result:string = await fetch(URL).then(res => res.text())
-            let splitted:string[] = result.split("\n",6)
-            let title:string = splitted[0].slice(2).trim()
-            let time:string = splitted[2].split(":")[1].slice(0,-1).trim()
-            let description:string = splitted[3].split(":")[1].slice(0,-1).trim()
-            let category:string = splitted[4].split(":")[1].slice(0,-1).trim()
-            let tags:string[] = splitted[5].split(":")[1].split(',')
-            let info = {
-                filename:props.filename,
-                title:title,
-                time: time,
-                description: description,
-                category: category,
-                tags: tags,
-                data: result
-            }
-            setInfo(info)
-            let newBlogsInfo = props.blogsInfo
-            newBlogsInfo[props.index] = info
-            props.handler(newBlogsInfo)
-
-        }
-        fetchData().catch(console.error)
-    },[props]);
-
 
 
     return <Link to={"/blog/"+props.filename} className={'cards'}>
-                <div className={'cards-title'}>{info.title}</div>
-                <div className={'cards-description'}>{info.description}</div>
+                <div className={'cards-title'}>{props.blogsInfo.title}</div>
+                <div className={'cards-description'}>{props.blogsInfo.description}</div>
                 <div className={'cards-footer'}>
-                    <div className={'cards-time'}>{info.time}</div>
-                    <div className={'cards-category'}>{info.category}</div>
+                    <div className={'cards-time'}>{props.blogsInfo.time}</div>
+                    <div className={'cards-category'}>{props.blogsInfo.category}</div>
                 </div>
             </Link>
 }
