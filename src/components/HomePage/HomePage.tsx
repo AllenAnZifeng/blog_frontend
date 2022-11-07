@@ -12,7 +12,7 @@ export function HomePage(props:Props) {
 
     return <>
         <Header></Header>
-        <Body handler={props.handler}></Body>
+        <Body></Body>
         <Footer></Footer>
     </>
 }
