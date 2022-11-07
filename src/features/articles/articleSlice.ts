@@ -1,4 +1,4 @@
-import { createAsyncThunk, createSlice, PayloadAction,nanoid } from '@reduxjs/toolkit';
+import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState } from '../../app/store';
 
 export type article = {

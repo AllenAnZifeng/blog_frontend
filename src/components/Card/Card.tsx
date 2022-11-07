@@ -1,25 +1,20 @@
-import React, {useEffect, useState} from 'react'
 import './Card.scss'
 import { Link } from "react-router-dom";
 import {article} from "../../features/articles/articleSlice";
 
 type Props = {
-    filename: string,
-    index: number,
-    blogsInfo: article
-    handler: React.Dispatch<React.SetStateAction<{filename: string, title: string, time: string, description: string, category: string, tags: string[], data: string}[]>>
+    data: article
+
 }
 
 export function Card(props: Props) {
 
-
-
-    return <Link to={"/blog/"+props.filename} className={'cards'}>
-                <div className={'cards-title'}>{props.blogsInfo.title}</div>
-                <div className={'cards-description'}>{props.blogsInfo.description}</div>
+    return <Link to={"/blog/"+props.data.filename} className={'cards'}>
+                <div className={'cards-title'}>{props.data.title}</div>
+                <div className={'cards-description'}>{props.data.description}</div>
                 <div className={'cards-footer'}>
-                    <div className={'cards-time'}>{props.blogsInfo.time}</div>
-                    <div className={'cards-category'}>{props.blogsInfo.category}</div>
+                    <div className={'cards-time'}>{props.data.time}</div>
+                    <div className={'cards-category'}>{props.data.category}</div>
                 </div>
             </Link>
 }
