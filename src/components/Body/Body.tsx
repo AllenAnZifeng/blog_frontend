@@ -17,7 +17,7 @@ export function Body() {
 
 
     useEffect(() => {
-            if (articlesStatus === 'idle') {
+        if (articlesStatus === 'idle') {
                 dispatch(fetchArticles())
             }
         }
@@ -28,14 +28,10 @@ export function Body() {
     let content;
 
     if (articlesStatus === 'loading') {
-        // content = <Spinner text="Loading..." />
         content = <Spinner animation="border" role="status">
             <span className="visually-hidden">Loading...</span>
         </Spinner>
     } else if (articlesStatus === 'success') {
-        // Sort posts in reverse chronological order by datetime string
-
-
         content = articles.map((article, index) => (
             <Card key={index} data={article}/>
         ))
@@ -46,6 +42,5 @@ export function Body() {
 
     return <div className={'bodyContent'}>
         {content}
-        <div></div>
     </div>
 }
