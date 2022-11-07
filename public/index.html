@@ -67,7 +67,7 @@
       // When the single page app is loaded further down in this file,
       // the correct url will be waiting in the browser's history for
       // the single page app to route accordingly.
-      (function(l) {
+      ( async function(l) {
         if (l.search[1] === '/' ) {
           let decoded = l.search.slice(1).split('&').map(function(s) {
             return s.replace(/~and~/g, '&')
@@ -76,6 +76,9 @@
                   l.pathname.slice(0, -1) + decoded + l.hash
           );
         }
+
+        await new Promise(r => setTimeout(r, 2000));
+
       }(window.location))
     </script>
     <!-- End Single Page Apps for GitHub Pages -->
