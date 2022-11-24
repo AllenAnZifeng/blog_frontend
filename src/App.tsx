@@ -1,10 +1,9 @@
-import React, {useEffect, useState} from 'react';
+import React from 'react';
 import {HomePage} from "./components/HomePage/HomePage";
 import './App.scss';
 import {
-  BrowserRouter as Router,
-  Routes,
-  Route
+  createHashRouter,
+  RouterProvider,
 } from "react-router-dom";
 import {ArticlePage} from "./components/ArticlePage/ArticlePage";
 
@@ -12,19 +11,18 @@ import {ArticlePage} from "./components/ArticlePage/ArticlePage";
 
 function App() {
 
+  const router = createHashRouter([
+    {
+      path: "/",
+      element: <HomePage/>
+    },
+    {
+      path: "/blog/:filename",
+      element: <ArticlePage/>
+    }
+  ]);
 
-  const [data, setData] = useState(Array<{filename: string,title: string, time: string, description: string, category: string, tags: string[], data: string}>);
-
-  useEffect( () => {
-
-  },[data]);
-
-  return <Router>
-    <Routes>
-      <Route path="/" element={<HomePage handler={setData} />} />
-      <Route path="/blog/:filename" element={<ArticlePage/>} />
-    </Routes>
-  </Router>
+  return <RouterProvider router={router} />
 }
 
 export default App;
