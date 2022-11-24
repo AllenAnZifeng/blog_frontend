@@ -2,20 +2,24 @@ import React, {useEffect, useState} from 'react'
 import './Article.scss'
 import ReactMarkdown from 'react-markdown'
 import { useParams } from "react-router-dom";
+import {useAppSelector} from '../../app/hooks'
+import {article, selectAllArticles} from '../../features/articles/articleSlice'
 
 
 export function Article() {
-    const [data, setData] = useState("");
+    const [data, setdata] = useState<string>("");
     let filename = useParams().filename;
+    const articles = useAppSelector(selectAllArticles)
+
 
     useEffect( () => {
-        const fetchData = async () => {
-            const URL = "https://raw.githubusercontent.com/AllenAnZifeng/blog_content/master/contents/" + filename
-            let result:string = await fetch(URL).then(res => res.text())
-            setData(result);
+        let file:article|undefined = articles.find((article) => article.filename === filename)
+        if ( typeof file === 'undefined') {
+            setdata("Error")
+        }else {
+            setdata(file.data)
         }
-        fetchData().catch(console.error)
-    },[filename]);
+    },[articles,filename]);
 
     return <div className={'article'}>
         <ReactMarkdown>{data}</ReactMarkdown>
