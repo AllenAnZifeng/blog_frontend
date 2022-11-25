@@ -1,6 +1,7 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import {AppDispatch, RootState} from '../../app/store';
 import {useEffect} from "react";
+import {forEach} from "react-bootstrap/ElementChildren";
 
 export type article = {
     filename: string;
@@ -69,14 +70,23 @@ export function useAllArticles(articlesStatus: string, dispatcher: AppDispatch) 
         , [articlesStatus,dispatcher])
 }
 
-export function useOneArticle(filename:string,articlesStatus: string, dispatcher: AppDispatch) {
+export function useOneArticle(filename:string,existing_articles: article[], dispatcher: AppDispatch) {
 
     useEffect(() => {
-            if (articlesStatus === 'idle') {
+            let articleFound = false;
+            for (let i = 0; i < existing_articles.length; i++) {
+                if (existing_articles[i].filename === filename) {
+                    articleFound = true;
+                    return
+                }
+            }
+            if (!articleFound) {
                 dispatcher(fetchArticleByFilename(filename))
             }
+
+
         }
-        , [filename,articlesStatus,dispatcher])
+        , [filename,existing_articles,dispatcher])
 }
 
 export const fetchAllArticles = createAsyncThunk('articles/fetchArticles', async () => {

@@ -23,7 +23,7 @@ export function Article() {
     const articlesStatus = useAppSelector(selectArticleStatus)
     const error = useAppSelector(selectArticleError)
 
-    useOneArticle(filename,articlesStatus,dispatch)
+    useOneArticle(filename,articles,dispatch)
 
     let content;
 
