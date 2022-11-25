@@ -1,9 +1,15 @@
-import React, {useEffect} from 'react'
+import React from 'react'
 import './Body.scss'
 import {Card} from "../Card/Card";
 import Spinner from 'react-bootstrap/Spinner';
 import {useAppSelector, useAppDispatch} from '../../app/hooks'
-import {fetchArticles, selectAllArticles} from '../../features/articles/articleSlice'
+import {
+    useAllArticles,
+    selectAllArticles,
+    selectArticleStatus,
+    selectArticleError
+} from '../../features/articles/allArticleSlice'
+
 
 
 
@@ -11,27 +17,19 @@ export function Body() {
 
     const dispatch = useAppDispatch()
     const articles = useAppSelector(selectAllArticles)
-    const articlesStatus = useAppSelector((state) => state.articles.status)
-    const error = useAppSelector((state) => state.articles.error)
+    const articlesStatus = useAppSelector(selectArticleStatus)
+    const error = useAppSelector(selectArticleError)
 
+    useAllArticles(articlesStatus,dispatch)
 
-
-    useEffect(() => {
-        if (articlesStatus === 'idle') {
-                dispatch(fetchArticles())
-            }
-        }
-        , [articlesStatus,dispatch])
-
-    // console.log(articles)
 
     let content;
 
-    if (articlesStatus === 'loading') {
+    if (articlesStatus === 'loading' || articlesStatus === 'success_one_page') {
         content = <Spinner animation="border" role="status">
-            <span className="visually-hidden">Loading...</span>
-        </Spinner>
-    } else if (articlesStatus === 'success') {
+                    <span className="visually-hidden">Loading...</span>
+                  </Spinner>
+    } else if (articlesStatus === 'success_all') {
         content = articles.map((article, index) => (
             <Card key={index} data={article}/>
         ))

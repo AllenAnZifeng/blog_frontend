@@ -1,6 +1,6 @@
 import './Card.scss'
 import { Link } from "react-router-dom";
-import {article} from "../../features/articles/articleSlice";
+import {article} from "../../features/articles/allArticleSlice";
 
 type Props = {
     data: article

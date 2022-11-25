@@ -1,28 +1,49 @@
-import React, {useEffect, useState} from 'react'
+import React from 'react'
 import './Article.scss'
 import ReactMarkdown from 'react-markdown'
 import { useParams } from "react-router-dom";
-import {useAppSelector} from '../../app/hooks'
-import {article, selectAllArticles} from '../../features/articles/articleSlice'
+import {useAppDispatch, useAppSelector} from '../../app/hooks'
+import {
+    article,
+    selectAllArticles,
+    selectArticleError,
+    selectArticleStatus,
+    useOneArticle
+} from '../../features/articles/allArticleSlice'
+import Spinner from "react-bootstrap/Spinner";
+
 
 
 export function Article() {
-    const [data, setdata] = useState<string>("");
-    let filename = useParams().filename;
+
+    let filename = useParams().filename||"";
+
+    const dispatch = useAppDispatch()
     const articles = useAppSelector(selectAllArticles)
+    const articlesStatus = useAppSelector(selectArticleStatus)
+    const error = useAppSelector(selectArticleError)
 
+    useOneArticle(filename,articlesStatus,dispatch)
 
-    useEffect( () => {
+    let content;
+
+    if (articlesStatus === 'loading') {
+        content = <Spinner animation="border" role="status">
+            <span className="visually-hidden">Loading...</span>
+        </Spinner>
+    } else if (articlesStatus === 'success_one_page' || articlesStatus === 'success_all') {
         let file:article|undefined = articles.find((article) => article.filename === filename)
         if ( typeof file === 'undefined') {
-            setdata("Error")
+            content = <div>Blog Not Found</div>
         }else {
-            setdata(file.data)
+            content = <ReactMarkdown>{file.data}</ReactMarkdown>
         }
-    },[articles,filename]);
+    } else if (articlesStatus === 'failed') {
+        content = <div>{error}</div>
+    }
 
     return <div className={'article'}>
-        <ReactMarkdown>{data}</ReactMarkdown>
+       {content}
     </div>
 }
 

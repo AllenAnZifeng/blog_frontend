@@ -1,9 +1,9 @@
 import { configureStore } from '@reduxjs/toolkit'
-import articleReducer from '../features/articles/articleSlice'
+import allArticleReducer from '../features/articles/allArticleSlice'
 
 export const store = configureStore({
     reducer: {
-        articles: articleReducer,
+        allArticles: allArticleReducer,
         // comments: commentsReducer,
         // users: usersReducer,
     },

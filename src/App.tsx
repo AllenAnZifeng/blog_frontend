@@ -14,7 +14,8 @@ function App() {
   const router = createHashRouter([
     {
       path: "/",
-      element: <HomePage/>
+      element: <HomePage/>,
+      errorElement:<div>404</div>
     },
     {
       path: "/blog/:filename",
