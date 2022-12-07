@@ -2,11 +2,23 @@ import React, {SyntheticEvent, useEffect, useState} from 'react'
 import './Header.scss'
 import {Link} from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
-import {Login_Register_Form} from "../Login_Register_Form/Login_Register_Form";
+import {LoginRegisterForm} from "../LoginRegisterForm/LoginRegisterForm";
+import {useAppDispatch,useAppSelector} from "../../app/hooks";
+import {fetchUser, signOut,loadFromCookie, registerUser, selectUserName, selectUserStatus} from "../../features/user/userSlice";
+import OverlayTrigger from 'react-bootstrap/OverlayTrigger';
+import Tooltip from 'react-bootstrap/Tooltip';
+
+export type userPayload = {
+    name: string, email: string, pwd: string
+}
 
 
 export function Header() {
+    const dispatch = useAppDispatch()
     const [show, setShow] = useState(false);
+    const [panel, setPanel] = useState('');
+    const [validated, setValidated] = useState(false);
+
     const handleClose = () => {
         setShow(false);
         setPanel('');
@@ -16,73 +28,67 @@ export function Header() {
         setPanel('Login');
     }
 
-    const [panel, setPanel] = useState('');
-    const handleLoginPanel = () => setPanel('Login');
+    const handleLoginPanel = () => {
+        setPanel('Login');
+    }
     const handleRegisterPanel = () => setPanel('Register');
 
-    const [validated, setValidated] = useState(false);
-    const ip_addr = 'http://127.0.0.1:4000';
+    let status = useAppSelector(selectUserStatus)
+    let name = useAppSelector(selectUserName)
 
 
-    const submitHandler = async (event: SyntheticEvent, email: string, pwd: string) => {
+    let loginButton;
+
+    if (status === 'Guest') {
+        loginButton = <div tabIndex={0} className={'login'} onClick={handleShow}>Sign in</div>
+    }else{
+        loginButton =   <OverlayTrigger
+            key={'bottom'}
+            placement={'bottom'}
+            overlay={
+                <Tooltip id={`tooltip-bottom`}>
+                    Click to Sign Out
+                </Tooltip>
+            }
+        >
+            <div tabIndex={0} className={'login'} onClick={()=>{dispatch(signOut())}}>Hi {name}</div>
+        </OverlayTrigger>
+
+    }
+
+
+    const submitHandler = async (event: SyntheticEvent, name: string, email: string, pwd: string) => {
         const form = event.currentTarget;
         event.preventDefault();
         if (!(form as HTMLInputElement).checkValidity()) {
-
             event.stopPropagation();
         }
         setValidated(true);
 
-        let payload = {
+        let payload: userPayload = {
+            "name": name,
             "email": email,
             "pwd": pwd
         }
 
         if (panel === 'Register') {
-
-
-             let res = await fetch(ip_addr + "/api/register", {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload),
-                redirect: 'follow'
-            })
-            const response = await res.json()
-            console.log('out')
-            console.log(response)
-            alert(response.message)
-
-
-
-
+            dispatch(registerUser(payload))
 
 
         } else if (panel === 'Login') {
-
-
-            let res = await fetch(ip_addr + "/api/login", {
-                method: 'POST',
-                headers: {
-                    'Accept': 'application/json',
-                    'Content-Type': 'application/json'
-                },
-                body: JSON.stringify(payload),
-                redirect: 'follow'
-
-            });
-            const response = await res.json()
-            console.log('out')
-            console.log(response)
-            alert(response.message)
+            dispatch(fetchUser(payload))
         }
 
+        handleClose()
     };
 
 
+
+
     useEffect(() => {
+
+        dispatch(loadFromCookie())
+
         const login = document.querySelector('.panelLogin');
         const register = document.querySelector('.panelRegister');
 
@@ -94,15 +100,15 @@ export function Header() {
             register.setAttribute("style", "border-bottom: darkgrey 4px solid");
             login.setAttribute("style", "border-bottom: 0");
         }
-    }, [panel])
+
+    }, [panel,dispatch])
 
     return <>
         <div className={'header'}>
             <div className={'headerContent'}>
                 <div className={'title'}><a href={"https://zifengallen.me/"}><img className={'an'} src={"../../an.png"}
-                                                                                  alt={'安'}/></a><Link to={"/"}>Zifeng's
-                    Blog</Link></div>
-                <div tabIndex={0} className={'login'} onClick={handleShow}>Sign in</div>
+                    alt={'安'}/></a><Link to={"/"}>Zifeng's Blog</Link></div>
+                {loginButton}
             </div>
             <div className={'horizontalLine'}></div>
         </div>
@@ -115,9 +121,8 @@ export function Header() {
                     <div className={'panelText panelLogin'} onClick={handleLoginPanel}>Login</div>
                     <div className={'panelText panelRegister'} onClick={handleRegisterPanel}>Register</div>
                 </div>
-                <Login_Register_Form validated={validated} submitHandler={submitHandler}/>
+                <LoginRegisterForm panel={panel} validated={validated} submitHandler={submitHandler}/>
             </div>
-
         </Modal>
     </>
 }

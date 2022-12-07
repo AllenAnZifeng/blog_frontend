@@ -11,6 +11,7 @@ import {
     useOneArticle
 } from '../../features/articles/allArticleSlice'
 import Spinner from "react-bootstrap/Spinner";
+import {Comment} from "../Comment/Comment";
 
 
 
@@ -36,7 +37,10 @@ export function Article() {
         if ( typeof file === 'undefined') {
             content = <div>Blog Not Found</div>
         }else {
-            content = <ReactMarkdown>{file.data}</ReactMarkdown>
+            content = <>
+                        <ReactMarkdown>{file.data}</ReactMarkdown>
+                        <Comment blogID={filename}></Comment>
+                      </>
         }
     } else if (articlesStatus === 'failed') {
         content = <div>{error}</div>

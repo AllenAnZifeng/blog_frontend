@@ -88,7 +88,7 @@ export function useOneArticle(filename:string,existing_articles: article[], disp
         , [filename,existing_articles,dispatcher])
 }
 
-export const fetchAllArticles = createAsyncThunk('articles/fetchArticles', async () => {
+const fetchAllArticles = createAsyncThunk('articles/fetchArticles', async () => {
     let result:string = await fetch('https://raw.githubusercontent.com/AllenAnZifeng/blog_content/master/fileInfo.txt').then(res => res.text())
     let filenames: string[] = result.trim().split('\n')
     let fetchedArticles: article[] = []
@@ -116,7 +116,7 @@ export const fetchAllArticles = createAsyncThunk('articles/fetchArticles', async
 })
 
 
-export const fetchArticleByFilename = createAsyncThunk('articles/fetchArticleByFilename', async (filename:string) => {
+const fetchArticleByFilename = createAsyncThunk('articles/fetchArticleByFilename', async (filename:string) => {
     const URL = "https://raw.githubusercontent.com/AllenAnZifeng/blog_content/master/contents/" + filename
     let res:string = await fetch(URL).then(res => res.text())
     let splitted:string[] = res.split("\n",6)
