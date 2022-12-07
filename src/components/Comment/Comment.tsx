@@ -126,7 +126,7 @@ export function Comment(props: Props) {
 
 
     return <div id={"Comment"}>
-        <div className={"horizontalLine"}></div>
+        <div className={"Comment-divider"}></div>
         <div id={"commentTitle"}>Comments</div>
         {comments}
         <Form onSubmit={submitHandler}>
