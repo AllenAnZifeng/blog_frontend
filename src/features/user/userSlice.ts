@@ -105,11 +105,7 @@ export const registerUser = createAsyncThunk('user/fetchUser', async (payload:us
     console.log(response)
     alert(response.message)
 
-    return {
-        name:"",
-        status: 'Guest',
-        token:""
-    }
+    return Promise.reject(response.message)
 
 })
 
