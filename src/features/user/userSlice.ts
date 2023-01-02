@@ -1,6 +1,6 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
 import { RootState} from '../../app/store';
-import {ip_addr} from "../../App";
+import {ip_addr} from "../../util";
 import {userPayload} from "../../components/Header/Header";
 
 

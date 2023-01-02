@@ -4,7 +4,7 @@ import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
 import {selectUserName, selectUserStatus, selectUserToken, signOut} from "../../features/user/userSlice";
-import {ip_addr} from "../../App";
+import {ip_addr} from "../../util";
 
 type commentPayload = {
     authorName: string, blogID: string, comment: string, token: string
@@ -61,6 +61,7 @@ export function Comment(props: Props) {
 
         if (response.status === 200) {
             alert('Comment Posted')
+            window.location.reload()
         } else if (response.message === "Invalid Token!" || response.message === "User not Found!") {
             dispatch(signOut())
             console.log(response)
@@ -92,7 +93,7 @@ export function Comment(props: Props) {
             return []
         }
     }
-    
+
     useEffect(() => {
         fetchComment().then((res) => {
             setPreviousComment(res)
@@ -101,25 +102,25 @@ export function Comment(props: Props) {
 
     let comments;
 
+    const timeParser = (time: string) => {
+        let date = new Date(parseInt(time))
+        const year = date.getFullYear();
+        const month = date.getMonth() + 1;
+        const day = date.getDate();
+        return year + '-' + month + '-' + day
+    }
+
     if (previousComment.length > 0) {
         comments = previousComment.map((comment:fetchedComment, index) => {
             return (
                 <div key={index} className={'comment'}>
-                    <div className={'comment-author'}>{comment.authorName}</div>
+                    <div className={'comment-author'}>{comment.authorName}:</div>
                     <div className={'comment-content'}>{comment.content}</div>
+                    <div className={'comment-time'}>{timeParser(comment.time)}</div>
                 </div>
             )
         })
-        // comments = []
-        // for (let i = 0; i < previousComment.length; i++) {
-        //     comments.push(
-        //         <div key={i} className={'comment'}>
-        //             <div className={'comment-author'}>{previousComment[i].authorName}</div>
-        //             <div className={'comment-content'}>{previousComment[i].content}</div>
-        //         </div>
-        //     )
-        // }
-        console.log(comments)
+        // console.log(comments)
     } else {
         comments = <div>No comments yet.</div>;
     }

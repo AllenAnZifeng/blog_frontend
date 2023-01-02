@@ -7,7 +7,7 @@ import {
 } from "react-router-dom";
 import {ArticlePage} from "./components/ArticlePage/ArticlePage";
 
-export const ip_addr = 'http://127.0.0.1:4000';
+
 
 function App() {
 
