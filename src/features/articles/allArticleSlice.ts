@@ -93,7 +93,7 @@ const fetchAllArticles = createAsyncThunk('articles/fetchArticles', async () => 
     let filenames: string[] = result.trim().split('\n')
     let fetchedArticles: article[] = []
     for (let i = 0; i <filenames.length ; i++) {
-        const URL = "https://raw.githubusercontent.com/AllenAnZifeng/blog_content/master/contents/" + filenames[i]
+        const URL = "https://raw.githubusercontent.com/AllenAnZifeng/blog_content/master/src/" + filenames[i]
         let res:string = await fetch(URL).then(res => res.text())
         let splitted:string[] = res.split("\n",6)
         let title:string = splitted[0].slice(2).trim()
@@ -117,7 +117,7 @@ const fetchAllArticles = createAsyncThunk('articles/fetchArticles', async () => 
 
 
 const fetchArticleByFilename = createAsyncThunk('articles/fetchArticleByFilename', async (filename:string) => {
-    const URL = "https://raw.githubusercontent.com/AllenAnZifeng/blog_content/master/contents/" + filename
+    const URL = "https://raw.githubusercontent.com/AllenAnZifeng/blog_content/master/src/" + filename
     let res:string = await fetch(URL).then(res => res.text())
     let splitted:string[] = res.split("\n",6)
     let title:string = splitted[0].slice(2).trim()
