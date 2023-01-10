@@ -1,1 +1,2 @@
-export const ip_addr = 'http://127.0.0.1:4000';
+export const ip_addr = 'http://linode.zifengallen.me:54000';
+// export const ip_addr = 'http://localhost:4000';
