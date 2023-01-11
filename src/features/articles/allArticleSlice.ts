@@ -91,6 +91,10 @@ export function useOneArticle(filename:string,existing_articles: article[], disp
 const fetchAllArticles = createAsyncThunk('articles/fetchArticles', async () => {
     let result:string = await fetch('https://raw.githubusercontent.com/AllenAnZifeng/blog_content/master/fileInfo.txt').then(res => res.text())
     let filenames: string[] = result.trim().split('\n')
+    const index = filenames.indexOf("SUMMARY.md");
+    if (index > -1) { // only splice array when item is found
+        filenames=filenames.slice(0,index).concat(filenames.slice(index+1,))
+    }
     let fetchedArticles: article[] = []
     for (let i = 0; i <filenames.length ; i++) {
         const URL = "https://raw.githubusercontent.com/AllenAnZifeng/blog_content/master/src/" + filenames[i]
