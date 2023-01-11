@@ -1,5 +1,8 @@
 name: deploy-master
-on: [push]
+on:
+  push:
+    branches:
+      - "master"
 env:
   CI: false
 jobs:
