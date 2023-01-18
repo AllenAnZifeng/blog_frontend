@@ -1,5 +1,5 @@
 import React, {SyntheticEvent, useEffect, useState} from 'react'
-import './Comment.scss'
+import style from './Comment.module.scss'
 import Form from 'react-bootstrap/Form';
 import Button from "react-bootstrap/Button";
 import {useAppDispatch, useAppSelector} from "../../app/hooks";
@@ -113,10 +113,10 @@ export function Comment(props: Props) {
     if (previousComment.length > 0) {
         comments = previousComment.map((comment:fetchedComment, index) => {
             return (
-                <div key={index} className={'comment'}>
-                    <div className={'comment-author'}>{comment.authorName}:</div>
-                    <div className={'comment-content'}>{comment.content}</div>
-                    <div className={'comment-time'}>{timeParser(comment.time)}</div>
+                <div key={index} className={style.comment}>
+                    <div className={style.commentAuthor}>{comment.authorName}:</div>
+                    <div>{comment.content}</div>
+                    <div>{timeParser(comment.time)}</div>
                 </div>
             )
         })
@@ -126,9 +126,9 @@ export function Comment(props: Props) {
     }
 
 
-    return <div id={"Comment"}>
-        <div className={"Comment-divider"}></div>
-        <div id={"commentTitle"}>Comments</div>
+    return <div className={style.comment}>
+        <div className={style.commentDivider}></div>
+        <div className={style.commentTitle}>Comments</div>
         {comments}
         <Form onSubmit={submitHandler}>
             <Form.Group controlId="CommentInputText">

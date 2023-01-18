@@ -1,4 +1,4 @@
-import './Card.scss'
+import style from './Card.module.scss'
 import { Link } from "react-router-dom";
 import {article} from "../../features/articles/allArticleSlice";
 
@@ -9,12 +9,12 @@ type Props = {
 
 export function Card(props: Props) {
 
-    return <Link to={"/blog/"+props.data.filename} className={'cards'}>
-                <div className={'cards-title'}>{props.data.title}</div>
-                <div className={'cards-description'}>{props.data.description}</div>
-                <div className={'cards-footer'}>
-                    <div className={'cards-time'}>{props.data.time}</div>
-                    <div className={'cards-category'}>{props.data.category}</div>
+    return <Link to={"/blog/"+props.data.filename} className={style.cards}>
+                <div className={style.cardsTitle}>{props.data.title}</div>
+                <div className={style.cardsDescription}>{props.data.description}</div>
+                <div className={style.cardsFooter}>
+                    <div>{props.data.time}</div>
+                    <div>{props.data.category}</div>
                 </div>
             </Link>
 }

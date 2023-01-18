@@ -1,25 +1,23 @@
-
-
-#Comment{
+.comment{
   display: flex;
   flex-direction: column;
   justify-content: center;
 }
 
-#commentTitle{
+.commentTitle{
   font-weight: bold;
   font-size: calc(1.325rem + .9vw);
 
 }
 
-.Comment-divider{
+.commentDivider{
     border-bottom: 1px solid #808080;
     margin: 1rem 0;
 }
-.comment-author{
+.commentAuthor{
   font-weight: bold;
 }
-.comment-time{
+.commentTime{
   color: rgb(153, 153, 153);
   margin-bottom: 0.7em;
 }

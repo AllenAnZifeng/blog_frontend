@@ -1,4 +1,4 @@
-@import '../Header/Header';
+@import '../Header/Header.module';
 .article{
   display: flex;
   flex-direction: column;
@@ -8,9 +8,6 @@
 }
 
 .article {
-  * {
-    width: 100%;
-  }
   .spinner-border {
     width: 5em;
   }
@@ -23,6 +20,9 @@
   }
 }
 
-h1, h2, h3, h4, h5, h6 {
-  font-weight: bold;
+.article {
+  h1, h2, h3, h4, h5, h6 {
+    font-weight: bold;
+  }
 }
+

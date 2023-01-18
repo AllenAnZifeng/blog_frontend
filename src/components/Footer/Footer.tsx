@@ -1,10 +1,10 @@
 import React from 'react'
-import './Footer.scss'
+import style from './Footer.module.scss'
 
 export function Footer() {
 
-    return <div className={'footer'}>
-        <div className={'footerContent'}>
+    return <div className={style.footer}>
+        <div className={style.footerContent}>
             Made with TypeScript, React and ❤
         </div>
     </div>

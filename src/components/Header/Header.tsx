@@ -1,5 +1,5 @@
 import React, {SyntheticEvent, useEffect, useState} from 'react'
-import './Header.scss'
+import style from './Header.module.scss'
 import {Link} from "react-router-dom";
 import Modal from 'react-bootstrap/Modal';
 import {LoginRegisterForm} from "../LoginRegisterForm/LoginRegisterForm";
@@ -40,7 +40,7 @@ export function Header() {
     let loginButton;
 
     if (status === 'Guest') {
-        loginButton = <div tabIndex={0} className={'login'} onClick={handleShow}>Sign in</div>
+        loginButton = <div tabIndex={0} className={style.login} onClick={handleShow}>Sign in</div>
     }else{
         loginButton =   <OverlayTrigger
             key={'bottom'}
@@ -51,7 +51,7 @@ export function Header() {
                 </Tooltip>
             }
         >
-            <div tabIndex={0} className={'login'} onClick={()=>{dispatch(signOut())}}>Hi {name}</div>
+            <div tabIndex={0} className={style.login} onClick={()=>{dispatch(signOut())}}>Hi {name}</div>
         </OverlayTrigger>
 
     }
@@ -104,22 +104,22 @@ export function Header() {
     }, [panel,dispatch])
 
     return <>
-        <div className={'header'}>
-            <div className={'headerContent'}>
-                <div className={'title'}><a href={"https://zifengallen.me/"}><img className={'an'} src={"../../an.png"}
+        <div className={style.header}>
+            <div className={style.headerContent}>
+                <div className={style.title}><a href={"https://zifengallen.me/"}><img className={style.an} src={"../../an.png"}
                     alt={'安'}/></a><Link to={"/"}>Zifeng's Blog</Link></div>
                 {loginButton}
             </div>
-            <div className={'horizontalLine'}></div>
+            <div className={style.horizontalLine}></div>
         </div>
         <Modal show={show} onHide={handleClose}>
             <Modal.Header closeButton>
                 <Modal.Title>Zifeng's Blog</Modal.Title>
             </Modal.Header>
-            <div className={'loginForm'}>
-                <div className={'panel'}>
-                    <div className={'panelText panelLogin'} onClick={handleLoginPanel}>Login</div>
-                    <div className={'panelText panelRegister'} onClick={handleRegisterPanel}>Register</div>
+            <div className={style.loginForm}>
+                <div className={style.panel}>
+                    <div className={style.panelText} onClick={handleLoginPanel}>Login</div>
+                    <div className={style.panelText} onClick={handleRegisterPanel}>Register</div>
                 </div>
                 <LoginRegisterForm panel={panel} validated={validated} submitHandler={submitHandler}/>
             </div>

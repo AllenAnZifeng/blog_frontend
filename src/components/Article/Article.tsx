@@ -1,5 +1,5 @@
 import React from 'react'
-import './Article.scss'
+import style from './Article.module.scss'
 import ReactMarkdown from 'react-markdown'
 import { useParams } from "react-router-dom";
 import {useAppDispatch, useAppSelector} from '../../app/hooks'
@@ -46,7 +46,7 @@ export function Article() {
         content = <div>{error}</div>
     }
 
-    return <div className={'article'}>
+    return <div className={style.article}>
        {content}
     </div>
 }

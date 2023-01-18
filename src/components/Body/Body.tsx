@@ -1,5 +1,5 @@
 import React from 'react'
-import './Body.scss'
+import style from './Body.module.scss'
 import {Card} from "../Card/Card";
 import Spinner from 'react-bootstrap/Spinner';
 import {useAppSelector, useAppDispatch} from '../../app/hooks'
@@ -38,7 +38,7 @@ export function Body() {
     }
 
 
-    return <div className={'bodyContent'}>
+    return <div className={style.bodyContent}>
         {content}
     </div>
 }
