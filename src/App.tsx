@@ -2,28 +2,30 @@ import React from 'react';
 import {HomePage} from "./components/HomePage/HomePage";
 import './App.scss';
 import {
-  createHashRouter,
-  RouterProvider,
+   HashRouter,
+   Routes,Route
 } from "react-router-dom";
-import {ArticlePage} from "./components/ArticlePage/ArticlePage";
-
+import {Body} from "./components/Body/Body";
+import {Article} from "./components/Article/Article";
 
 
 function App() {
 
-  const router = createHashRouter([
-    {
-      path: "/",
-      element: <HomePage/>,
-      errorElement:<div>404</div>
-    },
-    {
-      path: "/blog/:filename",
-      element: <ArticlePage/>
-    }
-  ]);
 
-  return <RouterProvider router={router} />
+  return <HashRouter>
+    <Routes>
+      <Route path="/" element={<HomePage/>}>
+        <Route
+            path="/"
+            element={<Body/>}
+        />
+        <Route path="/blog/:filename"
+               element={<Article/>}
+        />
+      </Route>
+    </Routes>
+  </HashRouter>
+
 }
 
 export default App;

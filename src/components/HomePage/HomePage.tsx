@@ -1,7 +1,7 @@
 import React from 'react'
 import {Header} from "../Header/Header";
-import {Body} from "../Body/Body";
 import {Footer} from "../Footer/Footer";
+import {Outlet} from "react-router-dom";
 
 
 
@@ -9,7 +9,7 @@ export function HomePage() {
 
     return <>
         <Header></Header>
-        <Body></Body>
+        <Outlet />
         <Footer></Footer>
     </>
 }
